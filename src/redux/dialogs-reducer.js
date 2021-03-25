@@ -1,7 +1,7 @@
 const UDATE_NEW_MESSAGE_BODY = 'UDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
-let initialState =  {
+let initialState = {
     messages: [
         { id: 1, message: 'Hi' },
         { id: 2, message: 'Bye' },
@@ -17,17 +17,23 @@ let initialState =  {
 
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case UDATE_NEW_MESSAGE_BODY:
-            state.newMessageBody = action.body;
-            return state;
-        case SEND_MESSAGE:
+        case UDATE_NEW_MESSAGE_BODY: {
+            return {
+                ...state,
+                newMessageBody: action.body
+            };
+        }
+        case SEND_MESSAGE: {
             let body = {
                 id: 4,
                 message: state.newMessageBody
             };
-            state.newMessageBody = '';
-            state.messages.push(body);
-            return state;
+            return {
+                ...state,
+                newMessageBody: '',
+                messages: [...state.messages, body]
+            };
+        }
         default:
             return state;
     }
