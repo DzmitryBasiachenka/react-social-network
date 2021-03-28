@@ -1,14 +1,14 @@
+import axios from 'axios';
 import React from 'react';
 import stules from './users.module.css';
+import ava from '../../assets/images/ava.png';
 
 const Users = (props) => {
 
     if (props.users.length === 0) {
-        props.setUsers([
-            { id: 1, photoUrl: '', followed: false, fullName: 'Dzmitry Voron', status: 'I\'m sleeping', location: { city: 'Vitebsk', country: 'Belarus' } },
-            { id: 2, photoUrl: '', followed: true, fullName: 'AKrasava', status: 'Do not disturb', location: { city: 'Moskov', country: 'Russia' } },
-            { id: 3, photoUrl: 'https://klike.net/uploads/posts/2019-03/1551511784_4.jpg', followed: false, fullName: 'Logka', status: ':-)', location: { city: 'Grodno', country: 'Belarus' } }
-        ])
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            props.setUsers(response.data.items)
+        });
     }
 
     return <div>
@@ -16,7 +16,7 @@ const Users = (props) => {
             props.users.map(user => <div key={user.id}>
                 <span>
                     <div>
-                        <img src={user.photoUrl} className={stules.userPhoto} />
+                        <img src={user.photos.small != null ? user.photos.small : ava} className={stules.userPhoto} />
                     </div>
                     <div>
                         {user.followed
@@ -26,12 +26,12 @@ const Users = (props) => {
                 </span>
                 <span>
                     <span>
-                        <div>{user.fullName}</div>
+                        <div>{user.name}</div>
                         <div>{user.status}</div>
                     </span>
                     <span>
-                        <div>{user.location.country}</div>
-                        <div>{user.location.city}</div>
+                        <div>{"user.location.country"}</div>
+                        <div>{"user.location.city"}</div>
                     </span>
                 </span>
             </div>
