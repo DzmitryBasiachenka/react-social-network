@@ -3,6 +3,7 @@ import React from 'react';
 import stules from './users.module.css';
 import ava from '../../assets/images/ava.png';
 
+//Old logic
 const Users = (props) => {
 
     let getUsers = () => {
